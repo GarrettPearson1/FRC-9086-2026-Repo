@@ -64,7 +64,7 @@ public class RobotContainer {
         double shooterSpool = driverController.getLeftTriggerAxis() * brev();
         //double pullTrigger = driverController.getRightTriggerAxis() == 1 ? 1 : 0;
 
-        shooterSubsystem.startShootingThemKidsUp(shooterSpool);
+        shooterSubsystem.startShootingSystem(shooterSpool);
         //shooterSubsystem.pullMotor(pullTrigger);
 
       }, shooterSubsystem)

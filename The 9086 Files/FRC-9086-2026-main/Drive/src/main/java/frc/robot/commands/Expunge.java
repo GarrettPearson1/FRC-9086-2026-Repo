@@ -13,11 +13,11 @@ public class Expunge extends SequentialCommandGroup {
                 new SequentialCommandGroup(
                     new StartEndCommand(
                         () -> {
-                            shooter.startShootingThemKidsUp(-1);
+                            shooter.startShootingSystem(-1);
                             shooter.pullMotor(-1);
                         },
                         () -> {
-                            shooter.stopAndShootYourselfSoThePoliceCantGetYou();
+                            shooter.stopShootingSystem();
                             shooter.stopPull();
                         }
                     ).withTimeout(1),

@@ -41,11 +41,11 @@ public class ShooterSubsystem extends SubsystemBase {
         pullerSparkMax.stopMotor();
     }
 
-    public void startShootingThemKidsUp(double speed) {
+    public void startShootingSystem(double speed) {
         shooterSparkMax.set(-speed);
     }
 
-    public void stopAndShootYourselfSoThePoliceCantGetYou() {
+    public void stopShootingSystem() {
         shooterSparkMax.stopMotor();
     }
 }

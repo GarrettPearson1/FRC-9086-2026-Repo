@@ -13,8 +13,8 @@ public class Shoot extends SequentialCommandGroup {
             new ParallelRaceGroup(
                 new SequentialCommandGroup(
                     new StartEndCommand(
-                        () -> shooter.startShootingThemKidsUp(controller.getLeftTriggerAxis()),
-                        shooter::stopAndShootYourselfSoThePoliceCantGetYou
+                        () -> shooter.startShootingSystem(controller.getLeftTriggerAxis()),
+                        shooter::stopShootingSystem
                     ).withTimeout(1),
                     new WaitCommand(1)
                 )
