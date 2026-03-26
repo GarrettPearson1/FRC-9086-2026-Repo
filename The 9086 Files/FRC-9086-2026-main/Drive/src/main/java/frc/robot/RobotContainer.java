@@ -22,6 +22,8 @@ import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.AutoSubsystem;
+import frc.robot.commands.Auto;
 
 public class RobotContainer {
   // Subsystems
@@ -32,6 +34,7 @@ public class RobotContainer {
 
   // Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
+  private final XboxController operatorController = new XboxController(OIConstants.kOperatorControllerPort); // set to other port (1?)
 
   public RobotContainer() {
     configureBindings();
@@ -54,14 +57,14 @@ public class RobotContainer {
 
     intakeSubsystem.setDefaultCommand(
       new RunCommand(() -> {
-        double pullerSpool = driverController.getRightTriggerAxis() * brev();
+        double pullerSpool = operatorController.getRightTriggerAxis() * brev();
 
         intakeSubsystem.setSpeed(pullerSpool);
       }, intakeSubsystem));
 
     shooterSubsystem.setDefaultCommand(
       new RunCommand(() -> {
-        double shooterSpool = driverController.getLeftTriggerAxis() * brev();
+        double shooterSpool = operatorController.getLeftTriggerAxis() * brev();
         //double pullTrigger = driverController.getRightTriggerAxis() == 1 ? 1 : 0;
 
         shooterSubsystem.startShootingSystem(shooterSpool);
@@ -97,11 +100,11 @@ public class RobotContainer {
   }
 
   private int brev() {
-    return driverController.getBButton() ? -1 : 1;
+    return operatorController.getBButton() ? -1 : 1;
   }
 
   private boolean isLeftDown() {
-    return driverController.getLeftTriggerAxis() != 0;
+    return operatorController.getLeftTriggerAxis() != 0;
   }
 
   private void configureBindings() {
@@ -125,18 +128,20 @@ public class RobotContainer {
         new ClimbMovement(climbSubsystem, false)
       );
 
-    new Trigger(driverController::getLeftBumperButton)
+    new Trigger(operatorController::getLeftBumperButton)
       .whileTrue(
-        new Pull(shooterSubsystem, driverController)
+        new Pull(shooterSubsystem, operatorController)
       );
 
-    new Trigger(driverController::getRightBumperButton)
+    new Trigger(operatorController::getRightBumperButton)
       .whileTrue(
-        new MoveArmToPosition(intakeSubsystem, driverController)
+        new MoveArmToPosition(intakeSubsystem, operatorController)
       );
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    Command autoCommand = new Auto(driveSubsystem, shooterSubsystem);
+    return autoCommand;
+    // return Commands.print("No autonomous command configured");
   }
 }
