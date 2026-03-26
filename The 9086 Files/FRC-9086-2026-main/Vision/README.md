@@ -1,3 +1,0 @@
-# Vision
-## !!! THIS CODE IS PROPRIETARY TO FRC-9086, SHARING THIS TO ANYONE OUTSIDE THE DRIVE TEAM IS THE SAME AS ESPIONAGE !!!
-## If we could we would execute by firing squad
