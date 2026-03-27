@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    new InstantCommand(() -> SmartDashboard.putString("Auto Status", "0.1 Init Starting")),
+    new InstantCommand(() -> SmartDashboard.putString("Auto Status", "0. Init Starting")),
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }

@@ -14,7 +14,7 @@ public class Auto extends SequentialCommandGroup {
             /*
             Drive forward code. Disabled to only shoot.
 
-            new InstantCommand(() -> SmartDashboard.putString("Auto Status", "1. Driving Forward")),
+            new InstantCommand(() -> SmartDashboard.putString("Auto Status", "1.9 Driving Forward")),
             new RunCommand(() -> {
                 System.out.println("<Drive:> Running Auto.");
                 //changed true to false to bypass the gyro system in order to not auto-aim at target
