@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.RobotDriveBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
@@ -23,6 +24,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.AutoSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Auto;
 
 public class RobotContainer {
@@ -140,10 +142,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    new InstantCommand(() -> SmartDashboard.putString("Auto Status", "0.1 Auto Command Sent")),
-    Command autoCommand = new Auto(driveSubsystem, shooterSubsystem);
-    new InstantCommand(() -> SmartDashboard.putString("Auto Status", "1. Auto Command Sent")),
+    Command autoCommand = new Auto(driveSubsystem, shooterSubsystem,intakeSubsystem);
     return autoCommand;
-    // return Commands.print("No autonomous command configured");
   }
 }
