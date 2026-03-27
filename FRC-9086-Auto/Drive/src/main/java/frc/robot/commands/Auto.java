@@ -5,10 +5,13 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 public class Auto extends SequentialCommandGroup {
-    public Auto(DriveSubsystem drive, ShooterSubsystem shooter) {
+    public Auto(DriveSubsystem drive, ShooterSubsystem shooter, IntakeSubsystem intake) {
         addCommands(
 
             /*
@@ -23,12 +26,14 @@ public class Auto extends SequentialCommandGroup {
             */
 
             new InstantCommand(() -> SmartDashboard.putString("Auto Status", "2. Shooting System Initiated")),
-            new RunCommand(() -> shooter.startShootingSystem(1.0), shooter).withTimeout(18.0),
-
+            new RunCommand(() -> intake.moveArm(-0.2), intake),
+            new RunCommand(() -> shooter.startShootingSystem(0.7), shooter).withTimeout(1.5),
+            new RunCommand(() -> shooter.pullMotor(0.9), shooter).withTimeout(4.0),
             new InstantCommand(() -> SmartDashboard.putString("Auto Status", "3. Shutting Down Motors")),
             
             new InstantCommand(() -> {
                 shooter.stopShootingSystem();
+                shooter.stopPull();
                 SmartDashboard.putString("Auto Status", "4. Auto Complete");
             }, shooter)
 
