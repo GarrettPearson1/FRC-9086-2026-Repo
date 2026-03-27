@@ -140,6 +140,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
+    new InstantCommand(() -> SmartDashboard.putString("Auto Status", "0.1 Auto Command Sent")),
     Command autoCommand = new Auto(driveSubsystem, shooterSubsystem);
     new InstantCommand(() -> SmartDashboard.putString("Auto Status", "1. Auto Command Sent")),
     return autoCommand;
