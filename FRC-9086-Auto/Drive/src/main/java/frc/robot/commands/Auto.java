@@ -14,19 +14,11 @@ public class Auto extends SequentialCommandGroup {
     public Auto(DriveSubsystem drive, ShooterSubsystem shooter, IntakeSubsystem intake) {
         addCommands(
 
-            /*
-            Drive forward code. Disabled to only shoot.
-
-            new InstantCommand(() -> SmartDashboard.putString("Auto Status", "1.9 Driving Forward")),
-            new RunCommand(() -> {
-                System.out.println("<Drive:> Running Auto.");
-                //changed true to false to bypass the gyro system in order to not auto-aim at target
-                drive.drive(0.5, 0.0, 0.0, false);
-            }, drive).withTimeout(2.0),
-            */
+          
+            //new InstantCommand(() -> SmartDashboard.putString("Auto Status", "1.9 Driving Forward")),
+            //new RunCommand(() -> drive.drive(0.5, 0.0, 0.0, true), drive).withTimeout(2.0),
 
             new InstantCommand(() -> SmartDashboard.putString("Auto Status", "2. Shooting System Initiated")),
-            new RunCommand(() -> intake.moveArm(-0.2), intake),
             new RunCommand(() -> shooter.startShootingSystem(0.7), shooter).withTimeout(1.5),
             new RunCommand(() -> shooter.pullMotor(0.9), shooter).withTimeout(4.0),
             new InstantCommand(() -> SmartDashboard.putString("Auto Status", "3. Shutting Down Motors")),
