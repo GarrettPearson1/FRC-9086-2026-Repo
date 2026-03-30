@@ -142,7 +142,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    Command autoCommand = new Auto(driveSubsystem, shooterSubsystem,intakeSubsystem);
+    Command autoCommand = new Auto(driveSubsystem, shooterSubsystem, intakeSubsystem, climbSubsystem);
     return autoCommand;
   }
 }
