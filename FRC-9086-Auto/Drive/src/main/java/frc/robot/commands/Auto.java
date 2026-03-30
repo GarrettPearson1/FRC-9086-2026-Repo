@@ -14,19 +14,22 @@ public class Auto extends SequentialCommandGroup {
     public Auto(DriveSubsystem drive, ShooterSubsystem shooter, IntakeSubsystem intake) {
         addCommands(
 
-          
-            //new InstantCommand(() -> SmartDashboard.putString("Auto Status", "1.9 Driving Forward")),
-            //new RunCommand(() -> drive.drive(0.5, 0.0, 0.0, true), drive).withTimeout(2.0),
+            /*
+            System.out.println("Initiating Drive");
+            new RunCommand(() -> drive.drive(-0.5, 0.0, 0.0, true), drive).withTimeout(1.0),
+            new RunCommand(() -> drive.drive(0.0, 0.0, 0.0, true), drive)
+            */
 
-            new InstantCommand(() -> SmartDashboard.putString("Auto Status", "2. Shooting System Initiated")),
+            System.out.println("Initiating Shooting System");
             new RunCommand(() -> shooter.startShootingSystem(0.7), shooter).withTimeout(1.5),
             new RunCommand(() -> shooter.pullMotor(0.9), shooter).withTimeout(4.0),
-            new InstantCommand(() -> SmartDashboard.putString("Auto Status", "3. Shutting Down Motors")),
-            
+            System.out.println("Shutting Down Shooting Motors");
+            new RunCommand(() -> drive.drive(0.0, 0.0, 0.1, true), drive)
+
             new InstantCommand(() -> {
                 shooter.stopShootingSystem();
                 shooter.stopPull();
-                SmartDashboard.putString("Auto Status", "4. Auto Complete");
+                System.out.println("Auto Complete");
             }, shooter)
 
         );
