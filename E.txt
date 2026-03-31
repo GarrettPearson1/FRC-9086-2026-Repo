@@ -1,1 +1,35 @@
-https://g.co/gemini/share/c9f954e0bb5b
+Troubleshooting Field Oriented
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. Check the Physical Port vs. Code
+Your code specifies the MXP SPI port:
+
+Java
+private final AHRS m_gyro = new AHRS(AHRS.NavXComType.kMXP_SPI, AHRS.NavXUpdateRate.k50Hz);
+If the NavX is plugged into the big 34-pin connector on top of the roboRIO: This code should be correct. Try pressing the NavX down firmly to ensure the pins are fully seated.
+
+If the NavX is plugged in via a USB cable: You are using the wrong constructor. You need to change kMXP_SPI to kUSB1 or kUSB2.
+
+2. Check the NavX LEDs
+Look physically at the NavX board while the robot is turned on:
+
+Green Power LED: Is it on? If not, the board isn't getting power.
+
+S1/S2 Status LEDs: When you first boot the robot, the NavX goes through a calibration phase. If you see red lights staying solid or blinking angrily forever, the gyro might be damaged or failing to calibrate.
+
+3. The Calibration Race Condition
+In your constructor, you have a thread that waits 1 second and then zeroes the heading:
+
+Java
+Thread.sleep(1000); // Wait for gyro to calibrate
+zeroHeading();      // Zero the gyro
+The NavX often takes much longer than 1 second to calibrate upon boot (sometimes up to 10–15 seconds). If you call reset() or zeroHeading() while it is still internally calibrating, it can sometimes lock up or fail to report values.
+
+The Test Fix: Comment out that entire new Thread(...) block temporarily. Boot up the robot, wait 15 seconds without touching it, and see if the gyro values start appearing in your prints.
+
+4. Vendor Dependency & Firmware
+Since you are using the new com.studica.frc.AHRS import, you are correctly using the updated Studica vendor dependency (Kauai Labs handed NavX over to Studica recently).
+
+Ensure your roboRIO has been freshly imaged for the current season.
+
+If you have a NavX2, make sure its firmware is up to date using the NavX UI tool on your laptop. Older firmware can sometimes silently fail with the newest WPILib/Studica libraries.
