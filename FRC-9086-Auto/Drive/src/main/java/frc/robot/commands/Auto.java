@@ -38,6 +38,10 @@ public class Auto extends SequentialCommandGroup {
 
             new ClimbMovement(climb, true).withTimeout(1.5),
 
+            /*
+            Under here is the climbing autonomous code.
+            */
+
             //Find exactly how long turning 90 degrees takes
             new RunCommand(() -> drive.drive(0.0, 0.0, -0.5, true), drive).withTimeout(1.5),
             new RunCommand(() -> drive.drive(0.0, 0.0, 0.0, true), drive).withTimeout(0.1),
