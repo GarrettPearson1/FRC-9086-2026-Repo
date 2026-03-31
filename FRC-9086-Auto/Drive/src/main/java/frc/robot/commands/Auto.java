@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -16,22 +17,13 @@ public class Auto extends SequentialCommandGroup {
 
             
             //Shooting Systems
-            new RunCommand(() -> drive.drive(-0.5, 0.0, 0.0, true), drive).withTimeout(2.5),
-            new RunCommand(() -> drive.drive(0.0, 0.0, 0.0, true), drive).withTimeout(0.5),
+            new RunCommand(() -> drive.drive(-0.5, 0.0, 0.0, false), drive).withTimeout(2.5),
+            new RunCommand(() -> drive.drive(0.0, 0.0, 0.0, false), drive).withTimeout(0.5),
             
-            new RunCommand(() -> shooter.startShootingSystem(0.7), shooter).withTimeout(1.5),
-            new RunCommand(() -> shooter.pullMotor(0.9), shooter).withTimeout(4.0),
-            
+            new RunCommand(() -> shooter.startShootingSystem(0.7), shooter).withTimeout(1.0),
+            new RunCommand(() -> shooter.pullMotor(0.9), shooter).withTimeout(2.0),
 
-            /*
-            new InstantCommand(() -> {
-                shooter.stopShootingSystem();
-                shooter.stopPull();
-                System.out.println("Auto Complete");
-            }, shooter)
-            */
-
-           new runCommand(() -> {
+           new InstantCommand(() -> {
                 shooter.stopShootingSystem();
                 shooter.stopPull();
                 System.out.println("Shooting Complete");
@@ -42,28 +34,30 @@ public class Auto extends SequentialCommandGroup {
             Under here is the climbing autonomous code.
             */
 
-            new ClimbMovement(climb, true).withTimeout(1.5),
-
             //Find exactly how long turning 90 degrees takes
-            new RunCommand(() -> drive.drive(0.0, 0.0, -0.5, true), drive).withTimeout(1.5),
-            new RunCommand(() -> drive.drive(0.0, 0.0, 0.0, true), drive).withTimeout(0.1),
+            new RunCommand(() -> drive.drive(0.0, 0.0, 1.0, false), drive).withTimeout(2.78),
+            new RunCommand(() -> drive.drive(0.0, 0.0, 0.0, false), drive).withTimeout(0.1),
+           
 
+            new RunCommand(() -> drive.drive(0.0, 0.5, 0.0, false), drive).withTimeout(1.6),
+            new RunCommand(() -> drive.drive(0.0, 0.0, 0.0, false), drive).withTimeout(0.1),
+            new RunCommand(() -> drive.drive(-0.2, 0.2, 0.0, false), drive).withTimeout(0.5)
 
-            //Sets Up climber
-            new ClimbMovement(climb, true).withTimeout(1.0),
-            /*
-            Continuous Version if first method only repeats once
-            new ClimbMovement(climb, true)
-                .repeatedly()
-                .withTimeout(1.0),
-            */
+            // //Sets Up climber
+            // new ClimbMovement(climb, true).withTimeout(1.0),
+            // /*
+            // Continuous Version if first method only repeats once
+            // new ClimbMovement(climb, true)
+            //     .repeatedly()
+            //     .withTimeout(1.0),
+            // */
 
-            //Drives to Post
-            new RunCommand(() -> drive.drive(0.0, -0.5, 0.0, true), drive).withTimeout(1.0),
-            new RunCommand(() -> drive.drive(0.0, 0.0, 0.0, true), drive).withTimeout(0.1),
+            // //Drives to Post
+            // new RunCommand(() -> drive.drive(0.0, -0.5, 0.0, true), drive).withTimeout(1.0),
+            // new RunCommand(() -> drive.drive(0.0, 0.0, 0.0, true), drive).withTimeout(0.1),
 
-            //Climbing the Ladder
-            new ClimbMovement(climb, false).withTimeout(3.0),
+            // //Climbing the Ladder
+            // new ClimbMovement(climb, false).withTimeout(3.0)
             
             
 
