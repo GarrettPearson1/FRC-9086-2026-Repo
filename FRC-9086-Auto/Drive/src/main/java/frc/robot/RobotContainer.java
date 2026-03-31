@@ -49,7 +49,7 @@ public class RobotContainer {
         () -> {
           double leftX = MathUtil.applyDeadband(driverController.getLeftY() * -1.0, OIConstants.kDriveDeadband);
           double leftY = MathUtil.applyDeadband(driverController.getLeftX() * -1.0, OIConstants.kDriveDeadband);
-          double rightX = MathUtil.applyDeadband(driverController.getRightX() * -1.0, OIConstants.kDriveDeadband);
+          double rightX = MathUtil.applyDeadband(driverController.getRightX() * -3.0, OIConstants.kDriveDeadband);
           
           driveSubsystem.drive(leftX, leftY, rightX, true);
         },
