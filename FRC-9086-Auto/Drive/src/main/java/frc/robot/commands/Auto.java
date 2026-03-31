@@ -36,11 +36,12 @@ public class Auto extends SequentialCommandGroup {
                 System.out.println("Shooting Complete");
             }, shooter).withTimeout(0.3),
 
-            new ClimbMovement(climb, true).withTimeout(1.5),
 
             /*
             Under here is the climbing autonomous code.
             */
+
+            new ClimbMovement(climb, true).withTimeout(1.5),
 
             //Find exactly how long turning 90 degrees takes
             new RunCommand(() -> drive.drive(0.0, 0.0, -0.5, true), drive).withTimeout(1.5),
