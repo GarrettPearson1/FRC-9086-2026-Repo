@@ -30,6 +30,7 @@ public class Auto extends SequentialCommandGroup {
                 System.out.println("Auto Complete");
             }, shooter)
             */
+           
            new runCommand(() -> {
                 shooter.stopShootingSystem();
                 shooter.stopPull();
