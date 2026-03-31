@@ -30,7 +30,7 @@ public class Auto extends SequentialCommandGroup {
                 System.out.println("Auto Complete");
             }, shooter)
             */
-           
+
            new runCommand(() -> {
                 shooter.stopShootingSystem();
                 shooter.stopPull();
@@ -51,6 +51,12 @@ public class Auto extends SequentialCommandGroup {
 
             //Sets Up climber
             new ClimbMovement(climb, true).withTimeout(1.0),
+            /*
+            Continuous Version if first method only repeats once
+            new ClimbMovement(climb, true)
+                .repeatedly()
+                .withTimeout(1.0);
+            */
 
             //Drives to Post
             new RunCommand(() -> drive.drive(0.0, -0.5, 0.0, true), drive).withTimeout(1.0),
