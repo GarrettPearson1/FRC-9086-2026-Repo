@@ -56,7 +56,7 @@ public class RobotContainer {
         driveSubsystem
         )
     );
-
+    
     intakeSubsystem.setDefaultCommand(
       new RunCommand(() -> {
         double pullerSpool = operatorController.getRightTriggerAxis() * brev();
