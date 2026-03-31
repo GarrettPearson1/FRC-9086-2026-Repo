@@ -55,7 +55,7 @@ public class Auto extends SequentialCommandGroup {
             Continuous Version if first method only repeats once
             new ClimbMovement(climb, true)
                 .repeatedly()
-                .withTimeout(1.0);
+                .withTimeout(1.0),
             */
 
             //Drives to Post
